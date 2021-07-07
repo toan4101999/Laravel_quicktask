@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
+use App\Models\TaskRepository;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function __construct()
+    public function __construct(TaskRepository $tasks)
     {
         $this->middleware('auth');
+        $this->tasks = $tasks;
     }
 
     /**
@@ -17,9 +19,10 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('tasks.home');
+        $tasks=$this->tasks->forUser($request->user());
+        return view('tasks.home', compact('tasks'));
     }
 
     /**

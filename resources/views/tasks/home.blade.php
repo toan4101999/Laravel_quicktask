@@ -29,6 +29,9 @@
                         </form>
                     </div>
                     {{-- list --}}
+                    @if (count($tasks)>0)
+                        
+                    @endif
                     <div style="margin-top: 5%;" class="card">
                         <div class="card-header">
                             Current Tasks
@@ -44,8 +47,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($tasks as $task)
                                     <tr>
-                                        <td>Task name 1</td>
+                                        <td>{{ $task->name }}</td>
                                         <td>
                                             <form action="" method="POST">
                                                 @method('DELETE')
@@ -54,6 +58,7 @@
                                             </form>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
