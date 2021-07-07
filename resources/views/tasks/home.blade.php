@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('New Task') }}</div>
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="{{ route ('home.store') }}" method="POST">
                             @csrf
                             <!-- Task Name -->
                             <div class="form-group">
