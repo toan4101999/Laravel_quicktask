@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTaskRequest;
-use App\Models\TaskRepository;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Models\TaskRepository;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\StoreTaskRequest;
 
 class TaskController extends Controller
 {
@@ -21,7 +23,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $tasks=$this->tasks->forUser($request->user());
+        $tasks = $this->tasks->forUser($request->user());
         return view('tasks.home', compact('tasks'));
     }
 
@@ -89,8 +91,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $home)
     {
-        //
+        $this->authorize('destroy',$home);
+        $home->delete();
+        return redirect()->route('home.index');
+       
     }
 }

@@ -51,7 +51,7 @@
                                     <tr>
                                         <td>{{ $task->name }}</td>
                                         <td>
-                                            <form action="" method="POST">
+                                            <form action="{{ route('home.destroy', ['home' => $task->id]) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger">DELETE</button>
